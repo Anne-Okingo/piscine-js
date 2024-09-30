@@ -15,7 +15,7 @@ Object.freeze(obj)
 
 const nested = {
     arr: [
-        3,undefined,'2'
+        4,undefined,'2'
     ],
     obj :{
         str: 'Alice',
