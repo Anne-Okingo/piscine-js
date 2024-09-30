@@ -2,8 +2,8 @@ function id(str){
     return str;
 }
 
-function len(str){
-    return str.length;
+function getLength(input){
+    return input.length;
 }
 
-// console.log(len([2, 42, 65]))
+console.log(len([2, 42, 65]))
