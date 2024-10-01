@@ -1,15 +1,17 @@
-const SourceObject = {
-    name : "Alice Anne",
-    age : 31,
-}
-
+const sourceObject = {
+    num: 42,
+    bool: true,
+    str: 'some text',
+    log: console.log,
+  }
 
 function get(key){
-    return SourceObject[key]
+    return sourceObject[key]
 }
 
 function set(key, value){
-    return SourceObject.age = 16
+    sourceObject[key] = value
+    return value
 }
 
-console.log(set("age", "31"))
+// console.log(set("bool", true))
