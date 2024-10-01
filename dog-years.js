@@ -13,10 +13,10 @@ function dogYears(planet,ageInSec){
 const OrbitalEarthSecond = 31557600;
 const YearsOnEarth = ageInSec / OrbitalEarthSecond;
 
-const PlanetOrbitalYears = YearsOnEarth * orbital[planet];
-const dogYearsPlanet = PlanetOrbitalYears * 7
+const PlanetOrbitalYears = YearsOnEarth / orbital[planet];
+const dogYearsPlanet = PlanetOrbitalYears * 7;
 
-return parseFloat(dogYearsPlanet.toFixed(2)) 
+return parseFloat(dogYearsPlanet.toFixed(2));
 }
 
-console.log(dogYears("earth",1000000000));
+console.log(dogYears("mercury",2134835688));
