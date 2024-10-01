@@ -7,5 +7,8 @@ function last(input){
 }
 
 function kiss(input){
-    return [first(input),last(input)]
+    return [last(input),first(input),]
 }
+
+
+console.log(kiss([1, 2, 3, 4, 5, 6]), [6, 1])
