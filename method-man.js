@@ -13,7 +13,10 @@
     return str.toUpperCase()
  };
 
-//  console.log(yell('hello world'))
+ function wisper(str){
+    return `*${str.toLowerCase()}*`
+ }
+//  console.log(wisper('hello world'))
 
  function capitalize(str){
    return str
