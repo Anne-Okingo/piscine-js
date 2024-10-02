@@ -20,10 +20,7 @@
 //  console.log(wisper('HELLO WORLD'))
 
  function capitalize(str){
-   return str
-   .split(' ')
-    .map(words => words.charAt(0).toUpperCase()+ words.slice(1).toLowerCase())
-    .join(' ')
+   return str.charAt(0).toUpperCase()+ str.slice(1).toLowerCase()
  };
 
-//  console.log(capitalize('hello world'))
+ console.log(capitalize('hello world'))
