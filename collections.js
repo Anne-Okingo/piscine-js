@@ -75,9 +75,15 @@ function superTypeOf(value) {
     } else if (value instanceof Map) {
       return 'Map';
     } else if (typeof value === 'object') {
-      return 'Object'; 
+      return 'Object'; // Return 'Object' with uppercase 'O'
     } else {
-      return typeof value.charAt(0).toUpperCase() + typeof value.slice(1); // Capitalize other types
+      return typeof value === 'string' ? 'String' :
+             typeof value === 'number' ? 'Number' :
+             typeof value === 'boolean' ? 'Boolean' :
+             typeof value === 'undefined' ? 'undefined' :
+             typeof value === 'function' ? 'Function' :
+             typeof value.charAt(0).toUpperCase() + typeof value.slice(1);
     }
   }
+  
   
