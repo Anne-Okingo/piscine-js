@@ -65,17 +65,19 @@ function strToObj(str) {
     return obj;
 }
 
-// 12. superTypeOf: Returns specific type for advanced types like Map, Set, etc.
 function superTypeOf(value) {
     if (value === null) {
-        return 'null';
-    } else if (value instanceof Map) {
-        return 'Map';
-    } else if (value instanceof Set) {
-        return 'Set';
+      return 'null';
     } else if (Array.isArray(value)) {
-        return 'Array';
+      return 'Array';
+    } else if (value instanceof Set) {
+      return 'Set';
+    } else if (value instanceof Map) {
+      return 'Map';
+    } else if (typeof value === 'object') {
+      return 'Object'; 
     } else {
-        return typeof value;
+      return typeof value.charAt(0).toUpperCase() + typeof value.slice(1); // Capitalize other types
     }
-}
+  }
+  
