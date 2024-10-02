@@ -15,8 +15,9 @@
 
  function wisper(str){
     return `*${str.toLowerCase()}*`
- }
-//  console.log(wisper('hello world'))
+ };
+
+//  console.log(wisper('HELLO WORLD'))
 
  function capitalize(str){
    return str
