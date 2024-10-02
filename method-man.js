@@ -13,7 +13,7 @@
     return str.toUpperCase()
  };
 
- function wisper(str){
+ function whisper(str){
     return `*${str.toLowerCase()}*`
  };
 
