@@ -1,6 +1,6 @@
 const cutFirst = (string) =>{
     if (string.length < 2){
-        return string
+        return ''
     }
     let newstr = ''
     let start = 2
@@ -14,7 +14,7 @@ const cutFirst = (string) =>{
 
     function cutLast (string){
         if (string.length < 2){
-            return string
+            return ''
         }
         let newStr = ''
         let end = string.length - 2
@@ -29,7 +29,7 @@ const cutFirst = (string) =>{
     
     function cutFirstLast (string){
         if (string.length < 2){
-            return string
+            return ''
         }
         let  newsTr = ''
         let start = 2
