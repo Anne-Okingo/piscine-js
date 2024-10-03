@@ -52,8 +52,8 @@ const modulo = (a, b) => {
         throw new Error("No modulo 0");
     }
 
-    a1 = Math.abs(a);
-    b1 = Math.abs(b);
+   let a1 = Math.abs(a);
+   let b1 = Math.abs(b);
 
     while (a1 >= b1){
         a1-=b1
