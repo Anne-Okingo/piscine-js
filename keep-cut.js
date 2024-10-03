@@ -1,4 +1,7 @@
 const cutFirst = (string) =>{
+    if (string.length < 2){
+        return string
+    }
     let newstr = ''
     let start = 2
     let end = string.length
@@ -10,6 +13,9 @@ const cutFirst = (string) =>{
     }
 
     function cutLast (string){
+        if (string.length < 2){
+            return string
+        }
         let newStr = ''
         let end = string.length - 2
         let start = 0
@@ -22,6 +28,9 @@ const cutFirst = (string) =>{
 
     
     function cutFirstLast (string){
+        if (string.length < 2){
+            return string
+        }
         let  newsTr = ''
         let start = 2
         let end = string.length -2
@@ -33,6 +42,9 @@ const cutFirst = (string) =>{
     }
 
     const keepFirst = (string) =>{
+        if (string.length < 2){
+            return string
+        }
         let nEwstr = ''
         let start = 0
         let end = 2
@@ -44,6 +56,9 @@ const cutFirst = (string) =>{
     }
 
     const keepLast = (string) =>{
+        if (string.length < 2){
+            return string
+        }
         let nEwstr = ''
         let start = string.length -2
         let end = string.length
@@ -55,6 +70,9 @@ const cutFirst = (string) =>{
     }
 
     const keepFirstLast = (string) =>{
+        if (string.length < 2){
+            return string
+        }
         let nEwstr = ''
         let start = keepFirst(string)
         let end = keepLast(string)
