@@ -1,22 +1,22 @@
 const split = (str, sep) => {
     let result = [];
-    let temp = '';
+    let start = 0;
     let sepLen = sep.length;
 
-    for (let i = 0; i < str.length; i++) {
-        // Check if the substring from current index matches the separator
+    // Iterate through the string
+    for (let i = 0; i <= str.length - sepLen; i++) {
+        // Check if the substring from the current index matches the separator
         if (str.slice(i, i + sepLen) === sep) {
-            result.push(temp); // Push the accumulated string to result
-            temp = '';         // Reset the temp string
-            i += sepLen - 1;   // Skip over the separator characters
-        } else {
-            temp += str[i];    // Continue building the current substring
+            result.push(str.slice(start, i)); // Add the part before the separator
+            start = i + sepLen; // Move start index to after the separator
+            i += sepLen - 1;    // Skip over the separator characters
         }
     }
-
-    result.push(temp); // Push the last part after the loop
+    // Push the last part after the loop
+    result.push(str.slice(start));
     return result;
 };
+
 
 // Custom join function
 const join = (arr, sep) => {
