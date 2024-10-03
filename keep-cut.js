@@ -70,7 +70,7 @@ const cutFirst = (string) =>{
     }
 
     const keepFirstLast = (string) =>{
-        if (string.length < 2){
+        if (string.length < 4){
             return string
         }
         let nEwstr = ''
