@@ -1,22 +1,20 @@
-// Custom split function
 const split = (str, sep) => {
     let result = [];
     let temp = '';
+    let sepLen = sep.length;
 
-    // Iterate through each character of the string
     for (let i = 0; i < str.length; i++) {
-        // If we encounter the separator, push the current temp value to result and reset temp
-        if (str[i] === sep) {
-            result.push(temp);
-            temp = '';
+        // Check if the substring from current index matches the separator
+        if (str.slice(i, i + sepLen) === sep) {
+            result.push(temp); // Push the accumulated string to result
+            temp = '';         // Reset the temp string
+            i += sepLen - 1;   // Skip over the separator characters
         } else {
-            temp += str[i];  // Keep building the substring
+            temp += str[i];    // Continue building the current substring
         }
     }
-    
-    // Push the last remaining temp value to result
-    result.push(temp);
-    
+
+    result.push(temp); // Push the last part after the loop
     return result;
 };
 
