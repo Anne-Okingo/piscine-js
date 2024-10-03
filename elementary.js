@@ -36,6 +36,9 @@ const divide = (a,b) =>{
     // Work with absolute values for calculation
     a = Math.abs(a);
     b = Math.abs(b);
+    if (a < b){
+        return 0;
+    }
 
     // Perform division using repeated subtraction
     while (a >= 0) { // Change from `a != 0` to `a >= b`
