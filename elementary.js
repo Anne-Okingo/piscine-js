@@ -41,13 +41,13 @@ const divide = (a,b) =>{
     }
 
     // Perform division using repeated subtraction
-    while (a >= 0) { // Change from `a != 0` to `a >= b`
+    while (a >= b) { // Change from `a != 0` to `a >= b`
         a -= b; // Subtract b from a
         count++; // Increment count for each subtraction
     }
 
     // Return the result as a signed number
-    return Number(sign + count); // Combine sign and count into a single number
+    return sign === "-" ? -count : count;// Combine sign and count into a single number
 }
 
 const modulo = (a, b) => {
