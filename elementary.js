@@ -53,7 +53,7 @@ const modulo = (a, b) => {
     }
 
    let a1 = Math.abs(a);
-   let b1 = Math.abs(b);
+   const b1 = Math.abs(b);
 
     while (a1 >= b1){
         a1-=b1
@@ -61,4 +61,4 @@ const modulo = (a, b) => {
     return (a < 0)? -a1:a1
 }
 
-console.log(modulo(15,3))
+// console.log(modulo(15,3))
