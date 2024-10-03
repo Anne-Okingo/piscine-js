@@ -39,7 +39,7 @@ const divide = (a,b) =>{
 
     // Perform division using repeated subtraction
     while (a!=0) { // Change from `a != 0` to `a >= b`
-        a -= b; // Subtract b from a
+        a >= b; // Subtract b from a
         count++; // Increment count for each subtraction
     }
 
