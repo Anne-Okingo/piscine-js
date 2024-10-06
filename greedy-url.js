@@ -6,18 +6,24 @@ function getURL(dataSet) {
 }
 
 function greedyQuery(dataSet) {
-    
+
     const urls = getURL(dataSet)
+  
     return urls.filter(url => {
-        const queryParams = (url.match(/\?.+?&/g) || []).length
-        return queryParams >= 2
-    })
-}
-function notSoGreedy(dataSet) {
-    const urls = getURL(dataSet)
-    return urls.filter(url => {
-        const queryParams = (url.match(/\?.+?&/g) || []).length
-        return queryParams >= 1 && queryParams <= 2
+       
+        const queryMatch = url.match(/\?.+?&/g)
+        return queryMatch && queryMatch.length >= 3
     })
 }
 
+
+function notSoGreedy(dataSet) {
+
+    const urls = getURL(dataSet)
+
+    return urls.filter(url => {
+       
+        const queryMatch = url.match(/\?.+?&/g)
+        return queryMatch && queryMatch.length >= 1 && queryMatch.length <= 2
+    })
+}
