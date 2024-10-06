@@ -1,29 +1,28 @@
 
 function getURL(dataSet) {
+  
     const urlRegex = /(https?:\/\/[^\s]+)/g
     const matches = dataSet.match(urlRegex) || []
     return matches
 }
 
 function greedyQuery(dataSet) {
-
+  
     const urls = getURL(dataSet)
   
     return urls.filter(url => {
-       
-        const queryMatch = url.match(/\?.+?&/g)
-        return queryMatch && queryMatch.length >= 3
+        
+        const queryMatch = url.match(/\?.*?(&.*?){3,}/);
+        return queryMatch !== null
     })
 }
 
-
 function notSoGreedy(dataSet) {
-
+  
     const urls = getURL(dataSet)
-
+    
     return urls.filter(url => {
-       
-        const queryMatch = url.match(/\?.+?&/g)
-        return queryMatch && queryMatch.length >= 1 && queryMatch.length <= 2
+        const queryMatch = url.match(/\?.*?(&.*?){2,3}(?!.*&)/);
+        return queryMatch !== null
     })
 }
