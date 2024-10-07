@@ -1,4 +1,4 @@
-const firstDaynumber = (number, string) => {
+const firstDayWeek = (number, string) => {
     let date_str;
     if (string.match(/^0+/) !== null) {
         let date = 1 + (number - 1) * 7;
