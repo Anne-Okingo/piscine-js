@@ -31,7 +31,7 @@ const format_date = (date) => {
     if (dd < 10) dd = "0" + dd;
     let mm = date.getMonth() + 1;
     if (mm < 10) mm = "0" + mm;
-    let yy = date.getFullstring().toString();
+    let yy = date.getFullYear().toString();
     if (yy.length < 4) {
         yy = "0000".substr(0, 4 - yy.length) + yy;
     }
