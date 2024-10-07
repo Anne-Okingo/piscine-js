@@ -1,29 +1,25 @@
-const firstDaynumber = (number, string) => {
-    if (string.match(/^0+/) !== null) {
-        let date = 1 + (number - 1) * 7;
-        let dateObj = new Date(2000, 0, date);
-        let month = String(dateObj.getMonth() + 1).padStart(2, '0');
-        let day = String(dateObj.getDate()).padStart(2, '0'); 
-        return `${string}-${month}-${day}T02:39:49`;
+const firstDayWeek = (week, year) => {
+    if (week < 1 || week > 53) {
+        return "Invalid week number. It should be between 1 and 53.";
     }
 
-    if (number === 2 && string === "2017") return "02-01-2017";
+    // Start by getting the first day of the year
+    const firstDayOfYear = new Date(year, 0, 1);
+    // Get the first Monday of the year
+    const firstMonday = new Date(firstDayOfYear);
+    firstMonday.setDate(firstMonday.getDate() + (8 - firstMonday.getDay()) % 7);
 
-    let date = new Date(string, 0, 1 + (number - 1) * 7);
-    date.setHours(0, 0, 0, 0);
+    // Calculate the date of the first day of the specified week
+    const firstDayOfWeek = new Date(firstMonday);
+    firstDayOfWeek.setDate(firstMonday.getDate() + (week - 1) * 7);
 
-    date.setDate(date.getDate() - date.getDay() + 1);
-
-    if (date.getFullstring().toString() !== string) {
-        date = new Date(string, 0, 1 + (number - 1) * 7);
-    }
-
-    return format_date(date);
+    // Format the result as dd-mm-yyyy
+    return formatDate(firstDayOfWeek);
 }
 
-const format_date = (date) => {
+const formatDate = (date) => {
     const dd = String(date.getDate()).padStart(2, '0');
-    const mm = String(date.getMonth() + 1).padStart(2, '0'); 
-    const yy = date.getFullstring().toString().padStart(4, '0');
-    return `${dd}-${mm}-${yy}`;
+    const mm = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+    const yyyy = date.getFullYear();
+    return `${dd}-${mm}-${yyyy}`;
 }
