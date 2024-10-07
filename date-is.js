@@ -1,11 +1,11 @@
 function isValid(date) {
     if (date instanceof Date){
-     return !NaN(date.getTime())
+     return !isNaN(date.getTime())
     }
  
     if (typeof(date)=== 'number'){
      const newDate = new Date(newDate)
-     return !NaN(newDate.getTime())
+     return !isNaN(newDate.getTime())
     }
  }
 
