@@ -1,6 +1,13 @@
 function isValid(date) {
-    return date instanceof Date && !isNaN(date.getTime()) && Date.now();
-}
+    if (date instanceof Date){
+     return !NaN(date.getTime())
+    }
+ 
+    if (typeof(date)=== 'number'){
+     const newDate = new Date(newDate)
+     return !NaN(newDate.getTime())
+    }
+ }
 
 function isAfter(date,date2){
     return isValid(date) && isValid(date2) && date > date2
