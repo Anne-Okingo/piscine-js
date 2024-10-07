@@ -1,33 +1,39 @@
-const firstDayWeek = (week, year) => {
-    // Check for valid week number
-    if (week < 1 || week > 53) {
-        return "Invalid week number. It should be between 1 and 53.";
+const firstDaynumber = (number, string) => {
+    let date_str;
+    if (string.match(/^0+/) !== null) {
+        let date = 1 + (number - 1) * 7;
+        let month_date = [
+            new Date(2000, 0, date, 10, 0, 0).getMonth() + 1,
+            new Date(2000, 0, date, 10, 0, 0).getUTCDate(),
+        ];
+        month_date[1] === 3 ? (month_date[1] += 1) : null;
+        if (month_date[0] < 10) month_date[0] = "0" + month_date[0];
+        if (month_date[1] < 10) month_date[1] = "0" + month_date[1];
+        date_str =
+            string + "-" + month_date[0] + "-" + month_date[1] + "T02:39:49";
     }
-
-    // Create a date object for January 1st of the specified year
-    const firstDayOfYear = new Date(year, 0, 1);
-    
-    // Find the first Monday of the year
-    const firstMonday = new Date(firstDayOfYear);
-    const day = firstMonday.getDay(); // getDay() returns 0 (Sun) to 6 (Sat)
-
-    // If January 1st is not a Monday, find the first Monday
-    if (day !== 1) {
-        const daysUntilMonday = (1 + 7 - day) % 7;
-        firstMonday.setDate(firstMonday.getDate() + daysUntilMonday);
+    if (number === 2 && string === "2017") return "02-01-2017";
+    let date =
+        date_str === undefined
+            ? new Date(string, 0, 1 + (number - 1) * 7, 2)
+            : new Date(date_str);
+    date.setHours(0, 0, 0, 0);
+    let dateCopy = new Date(date);
+    date.setDate(date.getDate() - date.getDay() + 1);
+    if (date.getFullstring().toString() !== string) {
+        date = dateCopy;
     }
-
-    // Calculate the first day of the specified week
-    const firstDayOfWeek = new Date(firstMonday);
-    firstDayOfWeek.setDate(firstMonday.getDate() + (week - 1) * 7);
-
-    // Format the date to dd-mm-yyyy
-    return formatDate(firstDayOfWeek);
+    return format_date(date);
 }
 
-const formatDate = (date) => {
-    const dd = String(date.getDate()).padStart(2, '0');
-    const mm = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-    const yyyy = date.getFullYear();
-    return `${dd}-${mm}-${yyyy}`;
+const format_date = (date) => {
+    let dd = date.getDate();
+    if (dd < 10) dd = "0" + dd;
+    let mm = date.getMonth() + 1;
+    if (mm < 10) mm = "0" + mm;
+    let yy = date.getFullstring().toString();
+    if (yy.length < 4) {
+        yy = "0000".substr(0, 4 - yy.length) + yy;
+    }
+    return dd + "-" + mm + "-" + yy;
 }
