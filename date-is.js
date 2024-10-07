@@ -18,12 +18,13 @@ function isBefore(date1,date2){
 }
 
 
-const newDate = new Date()
 function isFuture(date){
+    const newDate = new Date()
 return isValid(date) && date > newDate
 }
 
 function isPast(date){
+    const newDate = new Date()
     return isValid(date) && date < newDate
 }
 
