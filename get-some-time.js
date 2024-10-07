@@ -20,7 +20,7 @@ const firstDayWeek = (number, string) => {
     date.setHours(0, 0, 0, 0);
     let dateCopy = new Date(date);
     date.setDate(date.getDate() - date.getDay() + 1);
-    if (date.getFullstring().toString() !== string) {
+    if (date.getFullYear().toString() !== string) {
         date = dateCopy;
     }
     return format_date(date);
