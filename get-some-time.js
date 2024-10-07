@@ -1,13 +1,23 @@
-// function firstDayWeek(number,string){
+// function firstDayWeek(number){
 //     if (number < 1 || number > 53) {
 //         return "Invalid week number. It should be between 1 and 53.";
 //     }
-//     let dates = number * 7
-//     let result = ""
-//     for (let i = 1; i <= dates; i++){
-
+//     // let result = ""
+//     let months = 1
+//     for (let i = 1; i <= 53; i++){
+//         if (i % 4 === 0){
+//             months++
+//         }
+//         if ( i === number && months < 10){
+//             months = '0' + String(months)
+//         }else if ( i === number && months > 10){
+//             months = string(months)
+//         }
 //     }
+//     return months
 // }
+
+// console.log(firstDayWeek(6))
 
 // const days = [
 //     "Monday",
@@ -35,16 +45,16 @@
 //     "December"
 // ];
 
-function firstDayWeek(number, year) {
-    // Validate inputs
+function firstDayWeek(number) {
     if (number < 1 || number > 53) {
         return "Invalid week number. It should be between 1 and 53.";
     }
 
-    const firstDayOfYear = new Date(year, 0, 1); // January 1st of the specified year
-    const firstDayOfWeek = firstDayOfYear.getDay(); // Get the day of the week (0 = Sunday)
+    const year = new Date().getFullYear(); // Get the current year
+    const firstDayOfYear = new Date(year, 0, 1); // January 1st of the current year
+    const firstDayOfWeek = firstDayOfYear.getDay(); // Get the day of the week for January 1st (0 = Sunday)
     
-    // Calculate the offset to the first Monday of the first week
+    // Calculate the offset to the first Monday of Week 1
     let offset = (firstDayOfWeek === 0) ? -6 : 1 - firstDayOfWeek; // If it's Sunday, go back 6 days
     
     // Calculate the first Monday of Week 1
@@ -64,6 +74,7 @@ function firstDayWeek(number, year) {
 }
 
 // Example Usage
-console.log(firstDayWeek(1, "2024")); // Output: "01-01-2024"
-console.log(firstDayWeek(2, "2024")); // Output: "08-01-2024"
+console.log(firstDayWeek(1)); // Should output the date of the first Monday of the first week
+console.log(firstDayWeek(6)); // Should output the date for the first day of week 6
+
 
