@@ -4,7 +4,7 @@ function isValid(date) {
     }
  
     if (typeof(date)=== 'number'){
-     const newDate = new Date(newDate)
+     const newDate = new Date(date)
      return !isNaN(newDate.getTime())
     }
  }
