@@ -6,9 +6,13 @@ function format(date, formatStr) {
     
     const pad = (n) => n < 10 ? '0' + n : n; // Helper for padding single digits with zero
 
+    // Check if the year is before year 1 (BC dates are represented with negative years)
+    const year = date.getFullYear();
+    const absoluteYear = Math.abs(year); // Always return positive year for 'y' format
+
     const replacements = {
-        'yyyy': date.getFullYear(), // 4-digit year
-        'y': date.getFullYear() % 100, // 2-digit year
+        'yyyy': pad(absoluteYear, 4), // 4-digit year, even for BC
+        'y': absoluteYear, // 2-digit year, but positive even in BC
         'MMMM': monthsLong[date.getMonth()], // Full month name
         'MMM': monthsShort[date.getMonth()], // Abbreviated month name
         'MM': pad(date.getMonth() + 1), // 2-digit month
@@ -26,8 +30,8 @@ function format(date, formatStr) {
         'ss': pad(date.getSeconds()), // 2-digit seconds
         's': date.getSeconds(), // 1 or 2-digit seconds
         'a': date.getHours() < 12 ? 'AM' : 'PM', // AM/PM marker
-        'G': date.getFullYear() >= 0 ? 'AD' : 'BC', // Era (abbreviated)
-        'GGGG': date.getFullYear() >= 0 ? 'Anno Domini' : 'Before Christ' // Era (full form)
+        'G': year >= 0 ? 'AD' : 'BC', // Era (abbreviated)
+        'GGGG': year >= 0 ? 'Anno Domini' : 'Before Christ' // Era (full form)
     };
 
     // Replace the format string components with their corresponding values
