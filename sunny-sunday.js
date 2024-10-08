@@ -5,9 +5,13 @@ const sunnySunday = (date) => {
     const diffInDays = Math.floor(diffInTime / oneDay);
     const sundaysSkipped = Math.floor(diffInDays / 7);
     const adjustedDays = diffInDays - sundaysSkipped;
+
     const dayOfWeek = adjustedDays % 6;
+
     const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     
     return weekdays[dayOfWeek];
 };
+
+
 
