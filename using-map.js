@@ -2,7 +2,7 @@ function citiesOnly(array){
 return array.map(area => area.city)
 }
 
-  function UpperCasingStates(array){
+function upperCasingStates(array){
     return array.map(caps => 
         caps
         .split(' ')
