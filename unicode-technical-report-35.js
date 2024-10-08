@@ -9,10 +9,10 @@ function format(date, formatStr) {
         return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
     };
 
-    // Check if the year is before year 1 (BC dates are represented with negative years)
     const year = date.getFullYear();
     const absoluteYear = Math.abs(year); // Always return positive year for 'y' format
 
+    // Prepare replacements
     const replacements = {
         'yyyy': pad(absoluteYear, 4), // 4-digit year, always padded to 4 digits
         'y': absoluteYear, // 2-digit or more year, but positive even in BC
@@ -38,5 +38,11 @@ function format(date, formatStr) {
     };
 
     // Replace the format string components with their corresponding values
-    return formatStr.replace(/yyyy|y|MMMM|MMM|MM|M|dd|d|EEEE|E|HH|H|hh|h|mm|m|ss|s|a|G|GGGG/g, match => replacements[match]);
+    return formatStr.replace(/yyyy|y|MMMM|MMM|MM|M|dd|d|EEEE|E|HH|H|hh|h|mm|m|ss|s|a|G|GGGG/g, match => {
+        // Check for 'GGGG' first to prevent multiple matches
+        if (match === 'GGGG' || match === 'G') {
+            return replacements[match]; // Return the era based on the match
+        }
+        return replacements[match] || match; // Return the replacement or the original match if no replacement found
+    });
 }
