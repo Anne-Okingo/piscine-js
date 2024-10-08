@@ -4,15 +4,18 @@ function format(date, formatStr) {
     const daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const daysLong = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     
-    const pad = (n) => n < 10 ? '0' + n : n; // Helper for padding single digits with zero
+    const pad = (n, width = 2) => {
+        n = n.toString();
+        return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+    };
 
     // Check if the year is before year 1 (BC dates are represented with negative years)
     const year = date.getFullYear();
     const absoluteYear = Math.abs(year); // Always return positive year for 'y' format
 
     const replacements = {
-        'yyyy': pad(absoluteYear, 4), // 4-digit year, even for BC
-        'y': absoluteYear, // 2-digit year, but positive even in BC
+        'yyyy': pad(absoluteYear, 4), // 4-digit year, always padded to 4 digits
+        'y': absoluteYear, // 2-digit or more year, but positive even in BC
         'MMMM': monthsLong[date.getMonth()], // Full month name
         'MMM': monthsShort[date.getMonth()], // Abbreviated month name
         'MM': pad(date.getMonth() + 1), // 2-digit month
