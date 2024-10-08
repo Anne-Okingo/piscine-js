@@ -3,10 +3,10 @@ const sunnySunday = (date) => {
     const oneDay = 1000 * 60 * 60 * 24; 
     const diffInTime = date.getTime() - referenceDate.getTime();
     const diffInDays = Math.floor(diffInTime / oneDay);
-    const adjustedDays = Math.floor(diffInDays - Math.floor(diffInDays / 7));
+    const sundaysSkipped = Math.floor(diffInDays / 7);
+    const adjustedDays = diffInDays - sundaysSkipped;
     const dayOfWeek = adjustedDays % 6;
 
-   
     const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     
     return weekdays[dayOfWeek];
