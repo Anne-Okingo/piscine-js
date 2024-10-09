@@ -1,5 +1,5 @@
 function filterShortStateName(array){
-    const result = array.filter((str) => str.length > 7)
+    const result = array.filter((str) => str.length < 7)
     return result
 }
 
