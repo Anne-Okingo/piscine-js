@@ -1,31 +1,27 @@
 export const getArchitects = () => {
-        const architects = Array.from(document.querySelectorAll('a.architect'));
-    
-       const nonArchitects = Array.from(document.querySelectorAll('a:not(.architect)'));
-    
-      const architectIds = architects.map(architect => architect.id);
-
-    return [architectIds, nonArchitects]
+    return [
+        document.querySelectorAll("body a"),
+        document.querySelectorAll("body span"),
+    ];
 }
 
-
 export const getClassical = () => {
-    const classicalArchitects = Array.from(document.querySelectorAll('a.architect.classical'))
-    const nonClassicalArchitects = Array.from(document.querySelectorAll('a.architect:not(.classical)'))
-    
-    return [classicalArchitects, nonClassicalArchitects]
+    return [
+        document.querySelectorAll("a.classical"),
+        document.querySelectorAll("a:not(.classical)"),
+    ];
 }
 
 export const getActive = () => {
-    const activeClassical = Array.from(document.querySelectorAll('a.architect.classical.active'))
-    const nonActiveClassical = Array.from(document.querySelectorAll('a.architect.classical:not(.active)'))
-    
-    return [activeClassical, nonActiveClassical]
+    return [
+        document.querySelectorAll("a.classical.active"),
+        document.querySelectorAll("a.classical:not(.active)"),
+    ];
 }
 
 export const getBonannoPisano = () => {
-    const bonannoPisano = document.getElementById('BonannoPisano');
-    const remainingActiveClassical = Array.from(document.querySelectorAll('a.architect.classical.active:not(#BonannoPisano)'))
-    
-    return [bonannoPisano, remainingActiveClassical]
+    return [
+        document.getElementById("BonannoPisano"),
+        document.querySelectorAll("a.classical.active"),
+    ];
 }
