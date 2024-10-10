@@ -1,9 +1,13 @@
 export const getArchitects = () => {
-    const architects = Array.from(document.querySelectorAll('a.architect'))
-    const nonArchitects = Array.from(document.querySelectorAll('a:not(.architect)'))
+        const architects = Array.from(document.querySelectorAll('a.architect'));
     
-    return [architects, nonArchitects]
+       const nonArchitects = Array.from(document.querySelectorAll('a:not(.architect)'));
+    
+      const architectIds = architects.map(architect => architect.id);
+
+    return [architectIds, nonArchitects]
 }
+
 
 export const getClassical = () => {
     const classicalArchitects = Array.from(document.querySelectorAll('a.architect.classical'))
