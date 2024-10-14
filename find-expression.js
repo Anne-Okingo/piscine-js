@@ -1,10 +1,10 @@
-
+// Function to find the expression to reach the target number
 function findExpression(target, current = 1, expression = '') {
     // Base case: if current equals target, return the expression
     if (current === target) {
         return expression.trim(); // Remove leading/trailing whitespace
     }
-    
+
     // If current exceeds target, return undefined (can't reach target)
     if (current > target) {
         return undefined;
@@ -23,7 +23,7 @@ function findExpression(target, current = 1, expression = '') {
 }
 
 // Function to evaluate the expression to check if it equals the target
-function result(expression) {
+function calculateResult(expression) {
     // Start calculating from 1
     let current = 1;
     
