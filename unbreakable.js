@@ -1,38 +1,73 @@
-const split = (str, sep) => {
-    let result = [];
-    let start = 0;
-    let sepLen = sep.length;
-
-    // Iterate through the string
-    for (let i = 0; i <= str.length - sepLen; i++) {
-        // Check if the substring from the current index matches the separator
-        if (str.slice(i, i + sepLen) === sep) {
-            result.push(str.slice(start, i)); // Add the part before the separator
-            start = i + sepLen; // Move start index to after the separator
-            i += sepLen - 1;    // Skip over the separator characters
+function split(string, by) {
+    if (typeof string === "string") {
+        let res = [];
+        if (string === "") return [""]
+        if (by === undefined || by === '') {
+            if (by === '') {
+                for (let i = 0; i < string.length; i++) {
+                    res.push(string[i]);
+                }
+            } else {
+                res.push(string);
+            }
+            return res;
         }
-    }
-    // Push the last part after the loop
-    result.push(str.slice(start));
-    return result;
-};
+        let temp = "";
+        const len = by.length;
 
-
-// Custom join function
-const join = (arr, sep) => {
-    let result = '';
-
-    // Iterate through the array elements
-    for (let i = 0; i < arr.length; i++) {
-        result += arr[i];  // Add the array element to result
-
-        // Add separator if it's not the last element
-        if (i < arr.length - 1) {
-            result += sep;
+        for (let i = 0; i < string.length; i++) {
+            if (string.slice(i, i + len) === by) {
+                res.push(temp);
+                temp = "";
+                i += len - 1;
+            } else {
+                temp += string[i];
+            }
         }
+        if (temp !== "") {
+            res.push(temp);
+        }
+        if (string.slice(string.length - len, string.length) === by) {
+            res.push("")
+        }
+        return res;
     }
+}
 
-    return result;
-};
+function join(arr, by) {
+    if (Array.isArray(arr)) {
+        let res = ""
+        if (!by) {
+            for (let i = 0; i < arr.length; i++) {
+                if (i != arr.length - 1) {
+                    if (arr[i] === null) {
+                        res = res + by
+                    } else {
+                        res = res + arr[i] + ","
+                    }
+                } else {
+                    if (arr[i] !== null) {
+                        res = res + arr[i]
+                    }
+                }
+            }
+        }
+        for (let i = 0; i < arr.length; i++) {
+            if (i != arr.length - 1) {
+                if (arr[i] === null) {
+                    res = res + by
+                } else {
+                    res = res + arr[i] + by
+                }
+            } else {
+                if (arr[i] !== null) {
+                    res = res + arr[i]
+                }
+            }
+        }
+        return res
+    }
+}
 
-
+// console.log(split('ee,ff,g,', ','))
+// console.log('ee,ff,g,'.split(","))
