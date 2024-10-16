@@ -32,4 +32,15 @@ function neuron(data) {
 
     return result;
 }
+
+// Ensure that the output is declared here
+const output = neuron([
+    'Questions: what is ounces? - Response: Ounce, unit of weight in the avoirdupois system',
+    'Questions: what is ounces? - Response: equal to 1/16 pound (437 1/2 grains)',
+    'Questions: what is Mud dauber - Response: Mud dauber is a name commonly applied to a number of wasps',
+    'Orders: shutdown! - Response: Yes Sr!',
+    'Orders: Quote something! - Response: Pursue what catches your heart, not what catches your eyes.'
+]);
+
+// Log the output
 console.log(output);
