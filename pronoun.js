@@ -19,10 +19,10 @@ function pronoun(inputString) {
         }
     }
 
-    // Ensure every pronoun exists in the result, even if no following words were found
-    pronouns.forEach(pronoun => {
-        if (!result[pronoun]) {
-            result[pronoun] = { word: [], count: 0 };
+    // Remove pronouns that were never found
+    Object.keys(result).forEach(pronoun => {
+        if (result[pronoun].count === 0) {
+            delete result[pronoun];
         }
     });
 
@@ -37,4 +37,10 @@ const example2 = 'If he you want to buy something you have to pay.';
 console.log(pronoun(example2));
 
 const example3 = 'it i it she is gone';
-console.log(pronoun(example3)); 
+console.log(pronoun(example3));
+
+// Test case for no pronouns
+const noPronouns = `Your reducer function's returned value is assigned to the accumulator,
+whose value is remembered across each iteration throughout the array and
+ultimately becomes the final, single resulting value.`;
+console.log(pronoun(noPronouns));  // Should return {}
