@@ -7,11 +7,14 @@ function filterKeys(obj, callback) {
     const mappedEntries = Object.entries(obj).map(([key, value]) => [callback(key), value]);
     return Object.fromEntries(mappedEntries);
   }
-  
-  function reduceKeys(obj, callback, initialValue = '') {
-    const keys = Object.keys(obj);
-    return keys.reduce(callback, initialValue);
-  }
+  function reduceKeys(obj, reducer) {
+    const keys = Object.keys(obj); // Get all keys from the object
+    return keys.reduce((acc, key, index) => {
+        // Check if it's the first key to avoid leading comma
+        return acc + (index === 0 ? '' : ', ') + key; 
+    }, ''); // Initialize with an empty string
+}
+
   
 
   
