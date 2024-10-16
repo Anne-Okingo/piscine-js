@@ -1,63 +1,33 @@
-const filterEntries = (obj, filter) => {
-    let res = {};
-    for (let key in obj) {
-        if (filter([key, obj[key]])) {
-            res[key] = obj[key];
+const nutrients = { carbohydrates: 12, protein: 20, fat: 5 }
+
+
+const filterValues = (obj, fn) => {
+    var res = {};
+    for (const key in obj) {
+        if (fn(obj[key], key, obj)) {
+            res[key] = obj[key]
         }
     }
     return res;
 }
+console.log(filterValues(nutrients, (nutrient) => nutrient <= 12))
 
-const mapEntries = (entries, mapper) => {
-    let temp = {};
-    for (let key in entries) {
-        temp[key] = mapper([key, entries[key]]);
-    }
+const mapValues = (obj, fn) => {
     let res = {};
-    for (let key in temp) {
-        res[temp[key][0]] = temp[key][1];
+    for (const key in obj) {
+        res[key] = fn(obj[key], key, obj)
     }
     return res;
 }
+console.log(mapValues(nutrients, (v) => v + 1))
 
-const reduceEntries = (entries, reducer, initialValue) => {
-    let acc = initialValue;
-    for (let key in entries) {
-        acc = reducer(acc, [key, entries[key]]);
+const reduceValues = (obj, fn , acc) => {
+    if ( acc === undefined){
+        acc = 0
+    };
+    for (let key in obj) {
+        acc = fn(acc, obj[key], key, obj);
     }
     return acc;
 }
-
-const lowCarbs = (entries) => {
-    return filterEntries(entries, (entry) => {
-        let value = (nutritionDB[entry[0]]["carbs"] / 100) * entry[1];
-        return parseInt(value) <= 50;
-    });
-}
-
-const totalCalories = (entries) => {
-    return Number(
-        reduceEntries(
-            entries,
-            (acc, curr) => {
-                let value = (nutritionDB[curr[0]]["calories"] / 100) * curr[1];
-                return acc + value;
-            },
-            0
-        ).toFixed(1)
-    );
-}
-
-const cartTotal = (entries) => {
-    let res = {};
-    for (let key in entries) {
-        res[key] = {};
-        for (let dbKey in nutritionDB[key]) {
-            res[key][dbKey] =
-                Math.round(
-                    (entries[key] / 100) * nutritionDB[key][dbKey] * 1000
-                ) / 1000;
-        }
-    }
-    return res;
-}
+console.log(reduceValues(nutrients, (acc, cr) => acc + cr))
