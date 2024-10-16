@@ -8,16 +8,31 @@ function pronoun(inputString) {
         const pronounFound = match[1].toLowerCase();
         const nextWord = match[2] || null;
 
+        // Initialize the pronoun in the result if it doesn't exist
         if (!result[pronounFound]) {
             result[pronounFound] = { word: [], count: 0 };
         }
 
         result[pronounFound].count++;
 
+        // Only push to words if there is a next word
         if (nextWord) {
             result[pronounFound].word.push(nextWord);
         }
     }
+
+    // Ensure all pronouns have a count and word array
+    pronouns.forEach(pronoun => {
+        if (result[pronoun]) {
+            // If no words found, ensure words array remains empty
+            if (result[pronoun].word.length === 0) {
+                result[pronoun].word = [];
+            }
+        } else {
+            // If pronoun not found, initialize it
+            result[pronoun] = { word: [], count: 0 };
+        }
+    });
 
     // Remove pronouns that were never found
     Object.keys(result).forEach(pronoun => {
@@ -29,7 +44,7 @@ function pronoun(inputString) {
     return result;
 }
 
-// Example usage
+// Example usage and test cases
 const example1 = 'Using Array Destructuring, you you can iterate through objects easily.';
 console.log(pronoun(example1));
 
