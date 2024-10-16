@@ -1,34 +1,38 @@
 function neuron(data) {
-    const output = {};
+    const result = {
+        questions: {},
+        orders: {}
+    };
 
-    data.forEach(entry => {
-        // Split the entry into question/order and response parts
-        const [keyPart, responsePart] = entry.split(' - Response: ');
+    data.forEach(item => {
+        // Split the input into questions/orders and responses
+        const [typePart, responsePart] = item.split(' - Response: ');
+        const type = typePart.split(': ')[0].toLowerCase(); // Extract the type (Questions/Orders)
+        const text = typePart.split(': ')[1].trim(); // Extract the question or order text
 
-        // Extract the category (Questions/Orders) and specific item
-        const [category, item] = keyPart.split(': ');
-        const normalizedCategory = category.toLowerCase();
-        const normalizedItem = item.trim().toLowerCase().replace(/\s+/g, '_');
+        // Prepare the key for the result object
+        const key = text.replace(/\s+/g, '_').toLowerCase(); // Replace spaces with underscores and convert to lowercase
 
-        // Initialize the output structure if it doesn't exist
-        if (!output[normalizedCategory]) {
-            output[normalizedCategory] = {};
+        // Initialize the nested structure if it doesn't exist
+        if (type === 'questions') {
+            if (!result.questions[key]) {
+                result.questions[key] = {
+                    question: text,
+                    responses: []
+                };
+            }
+            result.questions[key].responses.push(responsePart.trim());
+        } else if (type === 'orders') {
+            if (!result.orders[key]) {
+                result.orders[key] = {
+                    order: text,
+                    responses: []
+                };
+            }
+            result.orders[key].responses.push(responsePart.trim());
         }
-
-        // Check if the normalized item already exists in the output
-        if (!output[normalizedCategory][normalizedItem]) {
-            output[normalizedCategory][normalizedItem] = {
-                question: normalizedCategory === 'questions' ? item.trim() : undefined,
-                order: normalizedCategory === 'orders' ? item.trim() : undefined,
-                responses: []
-            };
-        }
-
-        // Add the response to the appropriate responses array
-        output[normalizedCategory][normalizedItem].responses.push(responsePart.trim());
     });
 
-    return output;
+    return result;
 }
-
-console.log(JSON.stringify(result, null, 2));
+console.log(output);
