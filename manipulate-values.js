@@ -9,8 +9,12 @@ function filterValues(obj, callback) {
   }
   
   function reduceValues(obj, callback, initialValue) {
-    return Object.values(obj).reduce(callback, initialValue);
+    const values = Object.values(obj);
+    if (values.length === 0) return initialValue; // Return initialValue if no values present
+    return values.reduce(callback, initialValue);
   }
+  
+  // Example Usage:
   
   const nutrients = { carbohydrates: 12, protein: 20, fat: 5 };
   
@@ -22,4 +26,17 @@ function filterValues(obj, callback) {
   
   console.log(reduceValues(nutrients, (acc, cr) => acc + cr, 0));
   // Output: 37
+  
+  const groceriesCart = {
+    apple: 52,
+    banana: 89,
+    orange: 47,
+    grapes: 69,
+    watermelon: 30,
+    lemon: 29,
+    fat: 5,
+    carbohydrates: 12
+  };
+  
+  console.log(reduceValues(groceriesCart, (acc, cr) => acc + cr, 0)); // Ensure you use an appropriate initial value
   
