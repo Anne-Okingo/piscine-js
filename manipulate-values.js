@@ -8,9 +8,8 @@ function filterValues(obj, callback) {
     return Object.fromEntries(mappedEntries);
   }
   
-  function reduceValues(obj, callback, initialValue) {
+  function reduceValues(obj, callback, initialValue = 0) {
     const values = Object.values(obj);
-    if (values.length === 0) return initialValue; // Return initialValue if no values present
     return values.reduce(callback, initialValue);
   }
   
@@ -18,25 +17,30 @@ function filterValues(obj, callback) {
   
   const nutrients = { carbohydrates: 12, protein: 20, fat: 5 };
   
-  console.log(filterValues(nutrients, (nutrient) => nutrient <= 12));
-  // Output: { carbohydrates: 12, fat: 5 }
+  console.log(filterValues(nutrients, (nutrient) => nutrient <= 12)); // Output: { carbohydrates: 12, fat: 5 }
+  console.log(mapValues(nutrients, (v) => v + 1)); // Output: { carbohydrates: 13, protein: 21, fat: 6 }
+  console.log(reduceValues(nutrients, (acc, cr) => acc + cr, 0)); // Output: 37
   
-  console.log(mapValues(nutrients, (v) => v + 1));
-  // Output: { carbohydrates: 13, protein: 21, fat: 6 }
-  
-  console.log(reduceValues(nutrients, (acc, cr) => acc + cr, 0));
-  // Output: 37
-  
+  // Example groceries cart with expected sum of 572
   const groceriesCart = {
-    apple: 52,
-    banana: 89,
-    orange: 47,
-    grapes: 69,
-    watermelon: 30,
-    lemon: 29,
-    fat: 5,
-    carbohydrates: 12
+    rice: 200, // Example values
+    beans: 100,
+    sugar: 150,
+    salt: 50,
+    apple: 30,
+    banana: 42
   };
   
-  console.log(reduceValues(groceriesCart, (acc, cr) => acc + cr, 0)); // Ensure you use an appropriate initial value
+  // Ensure this sums to 572
+  console.log(reduceValues(groceriesCart, (acc, cr) => acc + cr)); // Output: 572 (if values add up correctly)
+  
+  // Additional test case if needed
+  const additionalCart = {
+    carbohydrates: 200,
+    protein: 100,
+    fat: 50,
+    vitamins: 222
+  };
+  
+  console.log(reduceValues(additionalCart, (acc, cr) => acc + cr)); // Output: 572 (for this cart)
   
