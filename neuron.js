@@ -1,46 +1,22 @@
-function neuron(data) {
-    const result = {
-        questions: {},
-        orders: {}
-    };
-
-    data.forEach(item => {
-        const [typePart, responsePart] = item.split(' - Response: ');
-        const type = typePart.split(': ')[0].toLowerCase(); // Extract the type (Questions/Orders)
-        const text = typePart.split(': ')[1].trim(); // Extract the question or order text
-
-        const key = text.replace(/\s+/g, '_').toLowerCase(); // Replace spaces with underscores and convert to lowercase
-
-        if (type === 'questions') {
-            if (!result.questions[key]) {
-                result.questions[key] = {
-                    question: text,
-                    responses: []
-                };
-            }
-            result.questions[key].responses.push(responsePart.trim());
-        } else if (type === 'orders') {
-            if (!result.orders[key]) {
-                result.orders[key] = {
-                    order: text,
-                    responses: []
-                };
-            }
-            result.orders[key].responses.push(responsePart.trim());
+const neuron = (arr) => {
+    const result = new Object
+    arr.map(sentence => {
+        const first = sentence.split(" - Response: ")[0]
+        const response = sentence.split(" - Response: ")[1]
+        const firstKey = first.slice(0, first.indexOf(":")).toLowerCase()
+        const firstValue = first.slice(first.indexOf(":") + 2)
+        let firstValueKey = ""
+        for (let i = 0; i < firstValue.length; i++) {
+            if (firstValue.charCodeAt(i) === 32) firstValueKey += "_"
+            if (firstValue.toLowerCase().charCodeAt(i) >= 97 && firstValue.toLowerCase().charCodeAt(i) <= 122) firstValueKey += firstValue.at(i).toLowerCase()
         }
-    });
-
-    return result;
+        if (!result[firstKey]) result[firstKey] = new Object
+        if (!result[firstKey][firstValueKey]) {
+            result[firstKey][firstValueKey] = new Object
+            result[firstKey][firstValueKey][firstKey.slice(0, -1)] = firstValue
+        }
+        if (!result[firstKey][firstValueKey]["responses"]) result[firstKey][firstValueKey]["responses"] = new Array
+        result[firstKey][firstValueKey]["responses"].push(response)
+    })
+    return result
 }
-
-// Ensure that the output is declared here
-const output = neuron([
-    'Questions: what is ounces? - Response: Ounce, unit of weight in the avoirdupois system',
-    'Questions: what is ounces? - Response: equal to 1/16 pound (437 1/2 grains)',
-    'Questions: what is Mud dauber - Response: Mud dauber is a name commonly applied to a number of wasps',
-    'Orders: shutdown! - Response: Yes Sr!',
-    'Orders: Quote something! - Response: Pursue what catches your heart, not what catches your eyes.'
-]);
-
-// Log the output
-console.log(output);
