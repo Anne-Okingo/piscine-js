@@ -12,18 +12,19 @@ function pick(object, string) {
     return newObj;
 }
 
-function omit(obj,arry){
+function omit(obj, arry) {
     let newobj = {}
 
-    if (typeof arry === 'string'){
+    if (typeof arry === 'string') {
         arry = [arry]
     }
 
-    for(let key in obj){
-        if (!arry.includes(key)){
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key) && !arry.includes(key)) {
             newobj[key] = obj[key]
         }
     }
+
     return newobj
 }
 
