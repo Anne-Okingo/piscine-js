@@ -1,3 +1,4 @@
+// debounce.js
 function debounce(fn, wait) {
     let timeout;
 
