@@ -1,41 +1,43 @@
-// debounce.js
-function debounce(fn, wait) {
-    let timeout;
+function debounce(fn, delay) {
+    let timer = null;
 
-    return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            fn.apply(this, args);
-        }, wait);
-    };
-}
-
-function opDebounce(fn, wait) {
-    let timeout;
-    let called = false;
-
-    return function(...args) {
+    return function (...args) {
         const context = this;
 
-        if (!called) {
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
             fn.apply(context, args);
-            called = true;
-        }
-
-        clearTimeout(timeout);
-
-        timeout = setTimeout(() => {
-            called = false;
-        }, wait);
+        }, delay);
     };
 }
 
-// Example usage of add function
+function opDebounce(fn, delay, options = {}) {
+    let timer = null;
+    const leading = options.leading || false;
+    let lastCall = 0;
+
+    return function (...args) {
+        const now = Date.now();
+
+        if (leading && (!timer || now - lastCall >= delay)) {
+            fn.apply(this, args);
+            lastCall = now;
+        }
+
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
+            fn.apply(this, args);
+            lastCall = Date.now();
+        }, delay);
+    };
+}
+
 function add(a, b) {
     return a + b;
 }
 
-// Test the debounce and opDebounce functions
 (async () => {
     const run = async (debouncedFn, { delay, count }) => {
         const results = [];
@@ -47,9 +49,9 @@ function add(a, b) {
     };
 
     const results = await Promise.all([
-        run(opDebounce(add, 40), { delay: 20, count: 5 }),
-        run(opDebounce(add, 40), { delay: 20, count: 2 }),
+        run(opDebounce(add, 40, { leading: true }), { delay: 20, count: 5 }),
+        run(opDebounce(add, 40, { leading: false }), { delay: 20, count: 2 }),
     ]);
 
-    console.log(results); // Expected output: [0, 0]
+    console.log(results); // Expected output: [1, 1]
 })();
