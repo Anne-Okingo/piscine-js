@@ -34,9 +34,9 @@ function opDebounce(fn, delay, options = {}) {
     };
 }
 
-function add(a, b) {
-    return a + b;
-}
+// function add(a, b) {
+//     return a + b;
+// }
 
 (async () => {
     const run = async (debouncedFn, { delay, count }) => {
