@@ -1,8 +1,8 @@
 function retry(count = 3, callback = async () => {}) {
-    return async function(...args) {
+    return async function (...args) {
         try {
-            const result = await callback(...args);
-            return result;
+            const res = await callback(...args);
+            return res;
         } catch (e) {
             if (count > 0) {
                 return retry(count - 1, callback)(...args);
@@ -13,19 +13,20 @@ function retry(count = 3, callback = async () => {}) {
     };
 }
 
-function timeout(delay = 0, callback = async() => {}) {
-    return async function(...args) {
-        let timeoutId;
-        const timeout = new Promise((_, reject) =>
-            timeoutId = setTimeout(() => reject(new Error('timeout')), delay)
+function timeout(delay = 0, callback = async () => {}) {
+    return async function (...args) {
+        const timeout = new Promise((resolve) =>
+            setTimeout(resolve, delay, Error('timeout'))
         );
-        try {
-            const result = await Promise.race([timeout, callback(...args)]);
-            clearTimeout(timeoutId);
-            return result;
-        } catch (error) {
-            clearTimeout(timeoutId);
-            throw error;
+        const functionCall = new Promise((resolve) =>
+            resolve(callback(...args))
+        );
+        const res = await Promise.race([timeout, functionCall]).then(
+            (res) => res
+        );
+        if (res instanceof Error) {
+            throw res;
         }
+        return res;
     };
 }
