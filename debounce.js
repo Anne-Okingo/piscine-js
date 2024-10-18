@@ -14,8 +14,10 @@ function opDebounce(fn, wait) {
     let called = false;
 
     return function(...args) {
+        const context = this;
+
         if (!called) {
-            fn.apply(this, args);
+            fn.apply(context, args);
             called = true;
         }
 
@@ -27,25 +29,26 @@ function opDebounce(fn, wait) {
     };
 }
 
-// Example usage
-function printMessage() {
-    console.log("Function executed at:", new Date().toLocaleTimeString());
+// Example usage of add function
+function add(a, b) {
+    return a + b;
 }
 
-// Debounced function
-const debounced = debounce(printMessage, 2000);
+// Test the debounce and opDebounce functions
+(async () => {
+    const run = async (debouncedFn, { delay, count }) => {
+        const results = [];
+        for (let i = 0; i < count; i++) {
+            await new Promise((resolve) => setTimeout(resolve, delay));
+            results.push(debouncedFn(1, 1));
+        }
+        return results;
+    };
 
-// Call the debounced function multiple times
-debounced();
-debounced();
-debounced();
+    const results = await Promise.all([
+        run(opDebounce(add, 40), { delay: 20, count: 5 }),
+        run(opDebounce(add, 40), { delay: 20, count: 2 }),
+    ]);
 
-setTimeout(() => {
-    // OpDebounced function
-    const opDebounced = opDebounce(printMessage, 2000);
-    
-    // Call the opDebounced function multiple times
-    opDebounced();
-    setTimeout(opDebounced, 1000);
-    setTimeout(opDebounced, 1000);
-}, 3000);
+    console.log(results); // Expected output: [0, 0]
+})();
