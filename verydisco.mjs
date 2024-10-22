@@ -10,24 +10,18 @@ return last + first
 
 
 const sentence  =(string) =>{
-let str = string.split(' ')
- let swap = str.map(word)
- let swapped = swap.join(' ')
-
- return swapped
+    return string
+    .split(' ')
+    .map(word)
+    .join(' ')
 }
 
 const args = process.argv;
-const argz = args.slice(2).join(' ');
+const argz = args.slice(2)
 
-let result = "";
 
-if (argz.includes(' ')) {
-    result = sentence(argz); 
-} else {
-    result = word(argz); 
-}
+let result = sentence(argz[0])
 
-console.log(result);
+console.log(result)
 
 
