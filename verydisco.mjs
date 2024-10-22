@@ -9,22 +9,24 @@ import {argv} from 'node:process'
 //     console.log(`${index}: ${val}`)
 // })
 
+const swap = (string) => {
+    let str = string.includes(' ') ? string.split(' ') : [string]
+    const swappedWords = str.map(string => {
+        const lens = Math.ceil(string.length / 2) 
+        let result = ""
+        if (string.length % 2 === 0) {
+            result = string.slice(lens) + string.slice(0, lens) 
+        } else {
+            result = string.slice(lens) + string.slice(0, lens) 
+        }
+        return result 
+    })
 
-const swap = (string) =>{
-    let result = ""
-    const lens = Math.ceil(string.length / 2)
-
-    // console.log(lens)
-    if (string.length % 2 === 0){
-        result = string.slice(lens) + string.slice(0,lens)
-    }else{
-        result = string.slice(lens) + string.slice(0,(lens))
-    }
-    return result
+    return swappedWords.join(' ') 
 }
-const swapped = argv.slice(2)
-.map(arg => swap(arg))
-.join(' ')
-console.log(swapped)
+const swapped = argv.slice(2) 
+    .map(arg => swap(arg)) 
+    .join(' ') 
+console.log(swapped) 
 
 
