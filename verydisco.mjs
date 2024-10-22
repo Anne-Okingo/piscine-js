@@ -1,32 +1,33 @@
-// const { argv} = require('node:process')
+import process from 'node:process'
 
-import {argv} from 'node:process'
+const word = (string) =>{
+let len = Math.ceil(string.length /2)
+let first = string.slice(0, len)
+let last = string.slice(len)
 
-// import process from 'node:process'
-// const argv = process.argv
-
-// argv.forEach((val,index) => {
-//     console.log(`${index}: ${val}`)
-// })
-
-const swap = (string) => {
-    let str = string.includes(' ') ? string.split(' ') : [string]
-    const swappedWords = str.map(string => {
-        const lens = Math.ceil(string.length / 2) 
-        let result = ""
-        if (string.length % 2 === 0) {
-            result = string.slice(lens) + string.slice(0, lens) 
-        } else {
-            result = string.slice(lens) + string.slice(0, lens) 
-        }
-        return result 
-    })
-
-    return swappedWords.join(' ') 
+return last + first
 }
-const swapped = argv.slice(2) 
-    .map(arg => swap(arg)) 
-    .join(' ') 
-console.log(swapped) 
+
+
+const sentence  =(string) =>{
+let str = string.split(' ')
+ let swap = str.map(word)
+ let swapped = swap.join(' ')
+
+ return swapped
+}
+
+const args = process.argv;
+const argz = args.slice(2).join(' ');
+
+let result = "";
+
+if (argz.includes(' ')) {
+    result = sentence(argz); 
+} else {
+    result = word(argz); 
+}
+
+console.log(result);
 
 
